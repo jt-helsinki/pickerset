@@ -1,0 +1,36 @@
+{
+  "name": "pickerset",
+  "version": "1.0.0",
+  "description": "A handy utility for picking and setting property values from objects. Can handle nested properties too.",
+  "main": "index.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "./node_modules/.bin/jest",
+    "build": "npm run test; tsc"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jt-helsinki/pickerset.git"
+  },
+  "keywords": [
+    "typescript",
+    "javascript"
+  ],
+  "author": "jt-helsinki",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/jt-helsinki/pickerset/issues"
+  },
+  "homepage": "https://github.com/jt-helsinki/pickerset#readme",
+  "devDependencies": {
+    "@babel/core": "^7.4.5",
+    "@babel/preset-env": "^7.4.5",
+    "@babel/preset-typescript": "^7.3.3",
+    "@types/jest": "^24.0.13",
+    "jest": "^24.8.0",
+    "ts-jest": "^24.0.2",
+    "typescript": "^3.4.5"
+  }
+}
