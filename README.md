@@ -30,7 +30,7 @@ const chook: TestPerson = {
             age: 8,
             country: {
                 city: {
-                    suburb: 'EIra'
+                    suburb: 'Eira'
                 }
             },
             children: []
@@ -48,12 +48,12 @@ const child0 = pickerSet.get('children').index(0).get('country').get('city').get
 
 console.log(name.valueOrDefault(), age.valueOrDefault(), suburb.valueOrDefault()); // 'Chook' 37 'Kallio'
 console.log(suburb.path); // ['country', 'city', 'suburb']
-console.log(child0.valueOrDefault()); // 'Munkkivuori'
+console.log(child0.value); // 'Munkkivuori'
 console.log(child0.path); // ['children', 0, 'country', 'city', 'suburb']
 
 
 const child0updated = pickerSet.get('children').index(0).get('country').get('city').set('suburb', 'Pasila');
-console.log(child0updated.valueOrDefault(), chook.children[0].country.city.suburb); // 'Pasila', 'Pasila'
+console.log(child0updated.value, chook.children[0].country.city.suburb); // 'Pasila', 'Pasila'
 console.log(child0updated.path); // ['children', 0, 'country', 'city', 'suburb']
 
 ```

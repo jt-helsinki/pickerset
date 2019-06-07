@@ -68,7 +68,7 @@ export class PickerSet<T> {
     }
 
     /**
-     * Returns the path up to the current picker set.
+     * Returns the current path up to the current picker set.
      *
      * @return {(string | number)[]}
      */
@@ -77,7 +77,7 @@ export class PickerSet<T> {
     }
 
     /**
-     * Gets the current value of the PickerSet.
+     * Gets the current value of the PickerSet for a given path.
      *
      * @return {T} The value of the property contained within the current SickerSet
      */
@@ -86,7 +86,8 @@ export class PickerSet<T> {
     }
 
     /**
-     * Gets the value of matching the specified path.
+     * Gets the value of matching the specified path. This is similar to the getting the `value` property with the
+     * exception that a default value can be specified.
      *
      * @param {T | null | undefined} defaultValue a default value if nothing is found.
      * @return {T} the value matching the sepcified path.
