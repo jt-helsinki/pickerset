@@ -1,10 +1,10 @@
 {
   "name": "pickerset",
-  "version": "1.0.1",
+  "version": "1.0.3",
   "description": "Picking and setting properties on objects. Can handle nested properties too.",
-  "main": "PickeerSet.js",
+  "main": "lib/PickeerSet.js",
   "directories": {
-    "build": "build"
+    "lib": "lib"
   },
   "scripts": {
     "test": "./node_modules/.bin/jest",

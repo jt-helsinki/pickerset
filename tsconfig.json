@@ -1,14 +1,15 @@
 {
     "compilerOptions": {
         "baseUrl": ".",
-        "outDir": "build",
-        "module": "esnext",
+        "outDir": "lib",
+        "module": "commonjs",
         "target": "es6",
         "lib": [
             "es5",
             "es6",
             "dom"
         ],
+        "declaration": true,
         "sourceMap": true,
         "checkJs": false,
         "allowJs": false,
