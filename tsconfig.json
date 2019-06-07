@@ -13,7 +13,7 @@
         "checkJs": false,
         "allowJs": false,
         "moduleResolution": "node",
-        "rootDir": "./src",
+        "rootDir": "src",
         "emitDecoratorMetadata": true,
         "experimentalDecorators": true,
         "forceConsistentCasingInFileNames": true,
@@ -25,14 +25,12 @@
         "noUnusedLocals": false,
         "noUnusedParameters": false,
         "pretty": true,
-        "noEmit": true,
         "esModuleInterop": true,
         "paths": {
             "@src/*": ["src/*"],
             "@test/*": ["test/*"]
         },
-        "skipLibCheck": true,
-        "watch": true
+        "skipLibCheck": true
     },
     "include": [
         "src/**/*.ts"

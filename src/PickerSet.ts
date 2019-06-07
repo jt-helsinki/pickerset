@@ -8,25 +8,13 @@ type Unarray<T> = T extends Array<infer U> ? U : T;
  */
 export class PickerSet<T> {
 
-    private wrappedValue: T | null | undefined;
+    private readonly _wrappedValue: T | null | undefined;
 
-    constructor(value: T | null | undefined) {
-        this.wrappedValue = value;
-    }
+    private _path: (string | number)[] = [];
 
-    public static setValueOnObject<TT>(obj: TT, properties: (number|string)[], value: any): void {
-        const setterGetter: PickerSet<TT> = new PickerSet<TT>(obj);
-        properties.forEach((property: string | number, index: number): void => {
-                if (index === properties.length - 1) {
-                    setterGetter.set(property as any, value);
-                } else if (typeof property === 'string') {
-                    setterGetter.get(property as any); // any so compiler doesn't baulk
-                } else {
-                    setterGetter.index(property as number);
-                }
-
-            }
-        );
+    constructor(value: T | null | undefined, properties:(string | number)[] = []) {
+        this._wrappedValue = value;
+        this._path = properties;
     }
 
     /**
@@ -35,17 +23,7 @@ export class PickerSet<T> {
      * @return {PickerSet<T[K]>} The value found at that index wrapped in a PickerSet<K>.
      */
     public get<K extends keyof T>(key: K): PickerSet<T[K]> {
-        return this.map(value => value[key]);
-    }
-
-    /**
-     * Gets the value associated with the specified property from an index in the array.
-     * @param {number} index index The index to retrieve.
-     * @param {K} key The key to get the value against.
-     * @return {PickerSet<Unarray<T>[K]>} The value found at that index wrapped in a PickerSet<K>.
-     */
-    public getAtIndex<K extends keyof Unarray<T>>(index: number, key: K): PickerSet<Unarray<T>[K]> {
-        return this.map(value => value[index][key]);
+        return this.map(value => value[key], key as string);
     }
 
     /**
@@ -55,7 +33,7 @@ export class PickerSet<T> {
      * @return {PickerSet<Unarray<T>>} The value found at that index wrapped in a PickerSet<K>.
      */
     public index(index: number): PickerSet<Unarray<T>> {
-        return this.map(value => value[index]);
+        return this.map(value => value[index], index);
     }
 
     /**
@@ -64,8 +42,47 @@ export class PickerSet<T> {
      * @param {K} key the key to set the value against.
      * @param value the value to set.
      */
-    public set<K extends keyof T>(key: K, value: any): void {
-        this.wrappedValue[key] = value;
+    public set<K extends keyof T>(key: K, value: any): PickerSet<T[K]> {
+        return this.map(prop => prop[key] = value, key as string);
+    }
+
+    /**
+     * Sets a value based on the current path value.
+     *
+     * @param {(number | string)[]} properties
+     * @param value
+     */
+    public setByPath<T>(properties: (number|string)[], value: any): void {
+        let pickerSet: any = this;
+        properties.forEach((property: string | number, index: number): void => {
+                if (index === properties.length - 1) {          // the final value in the properties[] so set the value.
+                    pickerSet = pickerSet.set(property as any, value);
+                } else if (typeof property === 'string') {      // string
+                    pickerSet = pickerSet.get(property);
+                } else {                                        // array
+                    pickerSet = pickerSet.index(property);
+                }
+
+            }
+        );
+    }
+
+    /**
+     * Returns the path up to the current picker set.
+     *
+     * @return {(string | number)[]}
+     */
+    get path(): (string | number)[] {
+        return this._path;
+    }
+
+    /**
+     * Gets the current value of the PickerSet.
+     *
+     * @return {T} The value of the property contained within the current SickerSet
+     */
+    get value(): T {
+        return this._wrappedValue
     }
 
     /**
@@ -74,14 +91,18 @@ export class PickerSet<T> {
      * @param {T | null | undefined} defaultValue a default value if nothing is found.
      * @return {T} the value matching the sepcified path.
      */
-    public valueOrDefault(defaultValue: T | null | undefined): T {
-        return this.wrappedValue ? this.wrappedValue : defaultValue;
+    public valueOrDefault(defaultValue: T | null | undefined = null): T {
+        return this.value ? this.value : defaultValue;
     }
 
-    private map<U>(func: (value: T) => U): PickerSet<U> {
-        if (!this.wrappedValue) {
+    private map<U>(func: (value: T) => U, property: string | number): PickerSet<U> {
+        if (!this._wrappedValue) {
             return this as PickerSet<any>;
         }
-        return new PickerSet(func(this.wrappedValue));
+        const properties = this._path.slice(0);
+        if (property !== null) {
+            properties.push(property);
+        }
+        return new PickerSet(func(this._wrappedValue), properties);
     }
 }
