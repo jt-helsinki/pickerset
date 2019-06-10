@@ -1,6 +1,6 @@
 {
   "name": "pickerset",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "description": "Type safe picking and setting properties on objects. Can handle nested properties too.",
   "main": "lib/PickerSet.js",
   "directories": {
