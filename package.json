@@ -2,7 +2,7 @@
   "name": "pickerset",
   "version": "1.0.3",
   "description": "Picking and setting properties on objects. Can handle nested properties too.",
-  "main": "lib/PickeerSet.js",
+  "main": "lib/PickerSet.js",
   "directories": {
     "lib": "lib"
   },
