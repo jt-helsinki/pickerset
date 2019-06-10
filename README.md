@@ -1,11 +1,19 @@
 # Pickerset
-Picking and setting properties on objects. Can handle nested properties too.
+Type safe picking and setting property values from/on objects. Can handle nested properties too.
 
-# Usage
+## Usage
 
-See the test directory or examples.
+See the test directory for example usage. 
+
+#### Install
+
+`npm install pickerset`
+
+#### Typescript
 
 ```
+import { PickerSet } from 'pickerset';
+
 const chook: TestPerson = {
     name: 'Chook',
     age: 37,
@@ -56,10 +64,15 @@ const child0updated = pickerSet.get('children').index(0).get('country').get('cit
 console.log(child0updated.value, chook.children[0].country.city.suburb); // 'Pasila', 'Pasila'
 console.log(child0updated.path); // ['children', 0, 'country', 'city', 'suburb']
 
+const path = pickerSet.get('children').index(1).get('country').get('city').get('suburb').path  
+console.log(path); // ['children', 1, 'country', 'city', 'suburb']
+pickerSet.setByPath(path, 'Lauttasaari')
+console.log(chook.children[1].country.city.suburb); // 'Lauttasaari'
+
 ```
 
-# Setup
+## Development Setup
 
-Run `npm install`
+If you wish to clone and work on this project simply run `npm install`.
 
 

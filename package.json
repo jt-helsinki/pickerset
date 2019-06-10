@@ -1,14 +1,15 @@
 {
   "name": "pickerset",
-  "version": "1.0.3",
-  "description": "Picking and setting properties on objects. Can handle nested properties too.",
+  "version": "1.0.4",
+  "description": "Type safe picking and setting properties on objects. Can handle nested properties too.",
   "main": "lib/PickerSet.js",
   "directories": {
     "lib": "lib"
   },
   "scripts": {
     "test": "./node_modules/.bin/jest",
-    "build": "tsc"
+    "build": "tsc",
+    "npm-publish": "npm publish"
   },
   "repository": {
     "type": "git",
